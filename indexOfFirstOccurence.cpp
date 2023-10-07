@@ -6,7 +6,7 @@ public:
 
         for(int i=0; i<=n-m; i++) {
             for(int j=0; j<m; j++) {
-                if(neele[j] != haystack[i+1]) {
+                if(needle[j] != haystack[i+1]) {
                     break;
                 }
                 
@@ -15,6 +15,25 @@ public:
             }
         }
 
+        return -1;
+    }
+};
+
+
+// =---------------------Method 2---------------------=
+
+class Solution {
+public:
+    int strStr(string haystack, string needle) {
+        int len = needle.size();
+        int i = 0;
+        int size = haystack.size() - len  + 1;
+        while(i <= size){
+            if(haystack.substr(i, len) == needle)
+                return i;
+            
+            i++;
+    }
         return -1;
     }
 };
