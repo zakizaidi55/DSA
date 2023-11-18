@@ -8,7 +8,7 @@ using namespace std;
 vector<int> NextMinElement(int *arr, int size, vector<int>&ans) {
     stack<int>st;
     st.push(-1);
-    for(int i=size-1; i>0; i--) {
+    for(int i=size-1; i>=0; i--) {
         int currElement = arr[i];
         // find the ans for current element
         while(st.top() >= currElement) {
