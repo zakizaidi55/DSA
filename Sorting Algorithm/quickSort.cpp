@@ -38,7 +38,7 @@ class Solution
         swap(nums[i],nums[pivot]);
         
         // recursion call for left array to the pivot element
-        quickSort(nums, start, i-1);
+        t, i-1);
 
         // recursion call  for the right array to yhe pivot element
         quickSort(nums, i+1, end);

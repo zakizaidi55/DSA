@@ -38,7 +38,7 @@ public: int getLength(ListNode* head) {
         }
 
         while(pos < k ){
-            nextNode = curr->next;
+              = curr->next;
             curr->next = prev;
             prev = curr;
             curr = nextNode;
