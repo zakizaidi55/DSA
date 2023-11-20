@@ -22,7 +22,7 @@ bool checkReduntant(string& str) {
                 st.pop();
             }
 
-            // yha pat tabhi phochege jab stak is empty ya open bracket
+            // yha pat tabhi phochege jab stack is empty ya open bracket
             st.pop();
 
             if(operatorCount == 0)
