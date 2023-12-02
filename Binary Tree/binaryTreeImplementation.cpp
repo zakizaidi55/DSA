@@ -67,6 +67,58 @@ void levelOrderTraversal(Node* root) {
     }
 }
 
+void inorderTraversal(Node* root) {
+    // base case
+    if(root == NULL) {
+        return;
+    }
+
+    // left part
+    inorderTraversal(root->left);
+
+    // printing
+    cout << root->data << " ";
+
+    // right part
+    inorderTraversal(root->right);
+}
+
+
+void preorderTraversal(Node* root) {
+    // base case
+    if(root == NULL) {
+        return;
+    }
+
+    // printing
+    cout << root->data << " ";
+
+    // left part
+    inorderTraversal(root->left);
+
+  
+
+    // right part
+    inorderTraversal(root->right);
+}
+
+
+void postorderTraversal(Node* root) {
+    // base case
+    if(root == NULL) {
+        return;
+    }
+    
+    // left part
+    inorderTraversal(root->left);
+
+    // right part
+    inorderTraversal(root->right);
+
+    // printing
+    cout << root->data << " ";
+}
+
 int main() {
 
     Node* root = createTree();
