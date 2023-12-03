@@ -101,7 +101,7 @@ void printFirstNegative(int* arr, int n, int k) {
     // process remaining window -> removal and addition
     for(int index=k; index<n; index++) {
         // find the answer from old window
-
+        
         if(dq.empty()) {
             cout << "0 " << " ";
         }
@@ -124,7 +124,7 @@ void printFirstNegative(int* arr, int n, int k) {
         }
     }   
 
-    // last window k answer print 
+   // last window k answer print 
     if(dq.empty()) {
         cout << "0 " << " ";
     }
