@@ -119,10 +119,30 @@ void postorderTraversal(Node* root) {
     cout << root->data << " ";
 }
 
+int height(Node* root) {
+    if(root == NULL) {
+        return 0;
+    }
+
+    // left height
+    int leftHeight = height(root->left);
+
+    // right height
+    int rightHeight = height(root->right);
+
+
+    int ans = max(leftHeight, rightHeight) + 1;
+
+
+    return ans;
+}
+
 int main() {
 
     Node* root = createTree();
-    levelOrderTraversal(root);
+    // levelOrderTraversal(root);
+
+    cout << height(root) << endl;
 
     return 0;
 }
