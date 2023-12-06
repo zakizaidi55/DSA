@@ -1,6 +1,7 @@
 #include <iostream>
 #include<queue>
 #include<vector>
+#include<map>
 using namespace std;
 
 
@@ -136,17 +137,90 @@ void printRightView(Node* root, int level, vector<int>& rightView) {
 
 }
 
-int main() {
-  Node* root = createTree();
-  // 10 20 40 -1 -1 50 70 110 -1 -1 111 -1 -1 80 -1 -1 30 -1 60 -1 90 112 -1 -1 113 -1 -
-  // cout << root << endl;
-  levelorder(root);
-  vector<int>leftView;
-  printLeftView(root, 0, leftView);
+void printTopView(Node* root) {
+  map<int,int> hdToNode;
+  queue<pair<Node*, int> >q;
+  q.push(make_pair(root, 0));
+
+  while(!q.empty()) {
+    pair<Node*, int> temp = q.front();
+    q.pop();
+
+    Node* frontNode = temp.first;
+    int hd = temp.second;  //horizontal distance
+
+    // if there is no answer fot this horizontal distance , then this comes very first time 
+    // store it
+
+    // if there is no entry in the map, store it
+    if(hdToNode.find(hd) == hdToNode.end()) {
+      hdToNode[hd] = frontNode->data;
+    }
+
+    if(frontNode->left != NULL) {
+      q.push(make_pair(frontNode->left, hd-1));
+    }
+
+    if(frontNode->right != NULL) {
+      q.push(make_pair(frontNode->right, hd+1));
+    }
+  }
+
+  cout <<"Printing top View " << endl;
+  for(auto i : hdToNode) {
+    cout << i.second << " " ;
+  }
+
+}
+
+void printBottomView(Node* root) {
+  map<int,int> hdToNode;
+  queue<pair<Node*, int> >q;
+  q.push(make_pair(root, 0));
+
+  while(!q.empty()) {
+    pair<Node*, int> temp = q.front();
+    q.pop();
+
+    Node* frontNode = temp.first;
+    int hd = temp.second;  //horizontal distance
+
+    // if there is no answer fot this horizontal distance , then this comes very first time 
+    // store it
+
+    // if there is no entry in the map, store it
+    
+     hdToNode[hd] = frontNode->data;
     
 
-  for(auto i: leftView) {
-    cout << i << " ";
+    if(frontNode->left != NULL) {
+      q.push(make_pair(frontNode->left, hd-1));
+    }
+
+    if(frontNode->right != NULL) {
+      q.push(make_pair(frontNode->right, hd+1));
+    }
   }
+
+  cout <<"Printing top View " << endl;
+  for(auto i : hdToNode) {
+    cout << i.second << " " ;
+  }
+
+}
+
+int main() {
+  Node* root = createTree();
+  // 10 20 40 -1 -1 50 70 110 -1 -1 111 -1 -1 80 -1 -1 30 -1 60 -1 90 112 -1 -1 113 -1 -1
+  // cout << root << endl;
+  // levelorder(root);
+  vector<int>leftView;
+  // printLeftView(root, 0, leftView);
+  
+  printTopView(root);
+
+  // for(auto i: leftView) {
+  //   cout << i << " ";
+  // }
   return 0;
 }
