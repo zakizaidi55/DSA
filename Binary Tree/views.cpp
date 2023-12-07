@@ -190,7 +190,7 @@ void printBottomView(Node* root) {
 
     // if there is no entry in the map, store it
     
-     hdToNode[hd] = frontNode->data;
+    hdToNode[hd] = frontNode->data;
     
 
     if(frontNode->left != NULL) {
@@ -209,18 +209,96 @@ void printBottomView(Node* root) {
 
 }
 
+void printLeftBoundary(Node* root) {
+
+  if (root == NULL){
+    return;
+  }
+
+  if(root->left == NULL && root->right == NULL) {
+    return ;
+  }
+
+  cout << root->data << " ";
+  if(root->left != NULL) {
+    printLeftBoundary(root->left);
+  }
+
+  else {
+    printLeftBoundary(root->right);
+  }
+
+}
+
+void printLeafBoundary(Node* root) {
+  if(root == NULL) {
+    return;
+  }
+
+  if(root->left == NULL && root->right == NULL) {
+    cout << root->data << " ";
+  } 
+
+  printLeafBoundary(root->left);
+  printLeafBoundary(root->right);
+
+}
+
+
+void printRightBoundary(Node* root) {
+
+  if (root == NULL){
+    return;
+  }
+
+  if(root->left == NULL && root->right == NULL) {
+    return ;
+  }
+
+  if(root->right != NULL) {
+    printRightBoundary(root->right);
+  }
+
+  else {
+    printRightBoundary(root->left);
+  }
+
+  cout << root->data << " ";
+
+}
+
+void boundaryTraversal(Node* root) {
+  if(root == NULL ) {
+    return;
+  }
+  printLeftBoundary(root);
+  printLeafBoundary(root);
+ 
+  if(root->right != NULL) {
+    printRightBoundary(root->right);
+  }
+
+  else {
+    printRightBoundary(root->left);
+  }
+  
+}
+
 int main() {
   Node* root = createTree();
   // 10 20 40 -1 -1 50 70 110 -1 -1 111 -1 -1 80 -1 -1 30 -1 60 -1 90 112 -1 -1 113 -1 -1
+  // 4 10 -1 5 5 -1 6 7 -1 8 8 -1 8 11 -1 3 4 -1 1 3 -1 8 6 -1 11 11 -1 5 8
   // cout << root << endl;
   // levelorder(root);
   vector<int>leftView;
   // printLeftView(root, 0, leftView);
   
-  printTopView(root);
+  // printTopView(root);
 
   // for(auto i: leftView) {
   //   cout << i << " ";
   // }
+
+  boundaryTraversal(root);
   return 0;
 }
