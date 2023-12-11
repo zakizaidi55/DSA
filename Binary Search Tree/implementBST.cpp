@@ -200,12 +200,31 @@ Node* deleteFromBST(Node* root, int target) {
     return root;
 }
 
+
+Node* bstFromInorder(int inorder[], int size, int start, int end) {
+    if(start > end) {
+        return NULL;
+    }
+
+    int mid = (start + end)/2;
+    int element = inorder[mid];
+
+    Node* root = new Node(element);
+
+    root->left = bstFromInorder(inorder, size, start, mid-1 );
+
+    root->right = bstFromInorder(inorder, size, mid+1, end);
+
+    return root;
+
+}
+
 int main() {
 
-    Node* root = NULL;
-    createBst(root);
+    // Node* root = NULL;
+    // createBst(root);
 
-    levelOrderTraversal(root);
+    // levelOrderTraversal(root);
 
     // cout <<endl << "printing inorder: "<< endl;
     // inorder(root);
@@ -213,9 +232,21 @@ int main() {
     // postorder(root);
     // cout << endl << "printing preorder: " << endl;
     // preorder(root);
-    int target = 20;
-    deleteFromBST(root, target);
-    cout << "after Delete " << endl;
+    // int target = 20;
+    // deleteFromBST(root, target);
+    // cout << "after Delete " << endl;
+    // levelOrderTraversal(root);
+
+    int inorder[] = {10,20,30,40,50,60,70};
+    int size = 7;
+
+    int start = 0;
+    int end = size-1;
+
+    Node* root = bstFromInorder(inorder, size, start, end);
+
     levelOrderTraversal(root);
+
+    
     return 0;
 }
