@@ -219,6 +219,38 @@ Node* bstFromInorder(int inorder[], int size, int start, int end) {
 
 }
 
+
+// convert this BST into sorted Doubly linked list
+void convertBSTtoDLL(Node* root, Node* &head) {
+    if(root == NULL) {
+        return;
+
+    }
+
+    // RNL
+    // R
+    convertBSTtoDLL(root->right, head);
+
+    // N
+    root->right = head;
+    if(head != NULL) 
+        head->left = root;
+
+    head = root;
+
+    // l
+    convertBSTtoDLL(root->left, head);
+}
+
+void printLL(Node* head) {
+    Node* temp = head;
+
+    while(temp != NULL) {
+        cout << temp->data << " ";
+        temp = temp->right;
+    }
+}
+
 int main() {
 
     // Node* root = NULL;
@@ -246,7 +278,9 @@ int main() {
     Node* root = bstFromInorder(inorder, size, start, end);
 
     levelOrderTraversal(root);
-
-    
+    Node* head = NULL;
+    convertBSTtoDLL(root, head);
+    cout << "Printing the linked list " << endl;
+    printLL(head); 
     return 0;
 }
