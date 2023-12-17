@@ -269,8 +269,8 @@ int main() {
     // cout << "after Delete " << endl;
     // levelOrderTraversal(root);
 
-    int inorder[] = {10,20,30,40,50,60,70};
-    int size = 7;
+    int inorder[] = {10,20,30,40,50,60};
+    int size = 6;
 
     int start = 0;
     int end = size-1;
@@ -278,9 +278,9 @@ int main() {
     Node* root = bstFromInorder(inorder, size, start, end);
 
     levelOrderTraversal(root);
-    Node* head = NULL;
-    convertBSTtoDLL(root, head);
-    cout << "Printing the linked list " << endl;
-    printLL(head); 
+    // Node* head = NULL;
+    // convertBSTtoDLL(root, head);
+    // cout << "Printing the linked list " << endl;
+    // printLL(head); 
     return 0;
 }
