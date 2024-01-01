@@ -17,12 +17,7 @@ class Node {
 };
 
 Node* insertIntoBST(Node* &root, int data) {
-    if(root == NULL) {
-        
-        root = new Node(data);
-        // cout << "root ka data " << root->data << endl;
-        return root;
-    }
+   
 
     // its not the first node
     if(data > root->data) {
@@ -242,6 +237,29 @@ void convertBSTtoDLL(Node* root, Node* &head) {
     convertBSTtoDLL(root->left, head);
 }
 
+Node* convertDLLToBST(Node* &head, int n) {
+    if (head == NULL || n <= 0)
+        return NULL;
+    
+
+    // LNR
+    Node* leftSubTree = convertDLLToBST(head, n/2);
+
+    // N
+    Node* root = head;
+    root->left = leftSubTree;
+    head = head->right;
+
+    //R
+    Node* rightSubTree = convertDLLToBST(head, n-n/2-1);
+    root->right = rightSubTree;
+
+    return root;
+
+
+
+}
+
 void printLL(Node* head) {
     Node* temp = head;
 
@@ -254,7 +272,7 @@ void printLL(Node* head) {
 int main() {
 
     // Node* root = NULL;
-    // createBst(root);
+    createBst(root);
 
     // levelOrderTraversal(root);
 
@@ -280,6 +298,7 @@ int main() {
     levelOrderTraversal(root);
     // Node* head = NULL;
     // convertBSTtoDLL(root, head);
+    // convertDLLToBST(Node* head, int n);
     // cout << "Printing the linked list " << endl;
     // printLL(head); 
     return 0;
