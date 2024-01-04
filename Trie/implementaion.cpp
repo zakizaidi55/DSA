@@ -1,5 +1,5 @@
 #include<iostream>
-
+#include<vector>
 using namespace std;
 
 class TrieNode{
@@ -89,6 +89,79 @@ void deleteWord(TrieNode* root, string word) {
 
 }
 
+
+void storeString(TrieNode* root, vector<string>&ans, string &input, string& prefix) {
+
+  // base case
+  if(root->isTerminal == true) {
+    ans.push_back(prefix + input);
+  }
+
+  for(char ch='a'; ch<='z'; ch++) {
+    int index = ch - 'a';
+    TrieNode* next = root->children[index];
+    if(next != NULL) {
+      // child exist
+      input.push_back(ch);
+
+      // baaki recursion 
+      storeString(next, ans, input, prefix);
+      // backtrack
+      input.pop_back();
+    }
+  }
+}
+
+void findPrefixString(TrieNode* root, string input, vector<string>&ans, string& prefix) {
+  // base case
+  if(input.length() == 0) {
+    TrieNode* lastChar = root;
+    storeString(lastChar, ans,input, prefix);
+    return;
+  }
+
+  char ch = input[0];
+  int index = ch - 'a';
+  TrieNode* child;
+
+  if(root->children[index] != NULL) {
+    child = root->children[index];
+  }
+  else {
+    return;
+  }
+
+  findPrefixString(child, input.substr(1),ans, prefix);
+}
+
+
+vector<vector<string> >getSuggestions(TrieNode* root, string input) {
+  vector<vector<string> >output;
+  string inputHelper = "";
+  TrieNode* prev = root;
+  for(int i=0; i<input.length(); i++) {
+    char lastCh = input[i];
+    int index = lastCh - 'a';
+    TrieNode* curr = prev->children[index];
+
+    if(curr == NULL) {
+      break;
+    }
+
+    else {
+      vector<string> downAns;
+      inputHelper.push_back(lastCh);
+      string dummy = "";
+      storeString(curr, downAns,inputHelper,dummy);
+      output.push_back(downAns);
+      // catch
+      prev = curr;
+    }
+  }
+
+  return output;
+}
+
 int main() {
 
     TrieNode* root = new TrieNode('-');
@@ -99,19 +172,42 @@ int main() {
     insertTrieNode(root, "com");
     insertTrieNode(root, "lover");
     insertTrieNode(root, "loved");
-    insertTrieNode(root, "laod");
+    insertTrieNode(root, "load");
     insertTrieNode(root, "lov");
     insertTrieNode(root, "bat");
     insertTrieNode(root, "cat");
     insertTrieNode(root, "car");
 
+    // string input = "ca";
+    
 
-    if(searchWord(root, "car") ) {
-    cout <<"found " << endl;
+
+    // string prefix = input;
+    // vector<string>ans;
+
+    // findPrefixString(root, input, ans, prefix);
+
+    // for(auto i:ans) {
+    //   cout << i << " "; 
+    // }
+
+    vector<vector<string> > ans = getSuggestions(root, "loa");
+
+    for(int i=0; i<ans.size(); i++) {
+      cout << i << "->" ;
+      for(auto str:ans[i]) {
+        cout << str << ",";
+      } cout << endl;
     }
 
-  else {
-    cout <<"Not found " << endl;
-  }
+    //if(searchWord(root, "car") ) {
+    //   cout <<"found " << endl;
+    // }
+
+    // else {
+    //   cout <<"Not found " << endl;
+    // }
+
+
     return 0;
 }
