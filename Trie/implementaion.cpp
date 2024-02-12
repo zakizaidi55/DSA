@@ -131,7 +131,7 @@ void findPrefixString(TrieNode* root, string input, vector<string>&ans, string& 
     return;
   }
 
-  findPrefixString(child, input.substr(1),ans, prefix);
+  findPrefixString(child, input.substr(1) ,ans, prefix);
 }
 
 

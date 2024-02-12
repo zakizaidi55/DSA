@@ -64,12 +64,48 @@ public:
 
         return dp[i];
     }
+
+
+
+    int solveUsingTab(vector<int>& days, vector<int>& costs) {
+        vector<int>dp(days.size()+1, -1);
+        dp[days.size()] = 0;
+        for(int i=days.size()-1; i>=0; i--) {
+            // sol for one case
+            // one day pass
+            int cost1 = costs[0] + dp[i+1];
+
+            // 7 day pass
+            int passEndDay = days[i] + 7 - 1;
+            int j = i;
+            while(j < days.size() && days[j] <= passEndDay) {
+                j++;
+            }
+            int cost7 = costs[1] + dp[j];
+
+
+            // 30 day pass
+            passEndDay = days[i] + 30 - 1;
+            j = i;
+            while(j < days.size() && days[j] <= passEndDay) {
+                j++;
+            }
+            int cost30 = costs[2] + dp[j];
+
+            
+            dp[i] = min(cost1, min(cost7,cost30));
+
+        }
+
+        return dp[0];
+    }
     
 
     int mincostTickets(vector<int>& days, vector<int>& costs) {
         int n = days.size();
         vector<int>dp(n+1, -1);
         // return minCostTicketsHelper(days, costs, 0);
-        return solveUsingMem(days, costs, 0, dp);
+        // return solveUsingMem(days, costs, 0, dp);
+        return solveUsingTab(days, costs);
     }
 };
