@@ -66,7 +66,10 @@ public:
     }
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> f2472463369eb9609128d39e82aff93013d5fc3c
     int solveUsingTab(vector<int>& days, vector<int>& costs) {
         vector<int>dp(days.size()+1, -1);
         dp[days.size()] = 0;
