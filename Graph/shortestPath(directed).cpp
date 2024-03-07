@@ -4,6 +4,7 @@
 #include<vector>
 #include<limits>
 #include<stack>
+#include<set>
 using namespace std;
 
 class Graph{
@@ -90,20 +91,66 @@ class Graph{
             }
 
         }
-};      
+
+        void dijkstraShortestPath( int n, int src, int dest) {
+            vector<int>dist(n+1, INT_MAX);
+            set<pair<int, int> >st;
+
+            // initial state
+            st.insert({0, src});
+            dist[src] = 0;
+
+            // distance updationlogic
+            while(!st.empty()) {
+                auto topElement = st.begin(); // find the reference of top node
+                pair<int, int> topPair = *topElement; // dereference the top node
+
+                int topDistance = topPair.first;
+                int topNode = topPair.second;
+
+                // remove the top node
+                st.erase(st.begin());
+
+                // update distance of neighbour
+                for(pair<int, int> nbrPair: adj[topNode]) {
+                    int nbrNode = nbrPair.first;
+                    int nbrDist = nbrPair.second;
+
+                    if(topDistance + nbrDist < dist[nbrNode]) {
+                        // found a new shorter distance
+                        
+                        auto previousEntry = st.find({dist[nbrNode], nbrNode});
+                        if(previousEntry != st.end()) {
+                            // entry present in set
+                            st.erase(previousEntry);
+                        }
+
+                        // now update the set and dist array
+                        dist[nbrNode] = topDistance + nbrDist;
+                        st.insert({dist[nbrNode],nbrNode });
+                    }
+                }
+            }
+
+            cout << "shortest distance from" << src << " node to " << dest << " node is " << dist[dest] << endl;
+        }
+};   
+
 
 
 
 int main() {
 
     Graph g;
-    g.addEdge(0,1,5,1);
-    g.addEdge(0,2,3,1);
-    g.addEdge(2,1,2,1);
-    g.addEdge(1,3,3,1);
-    g.addEdge(2,3,5,1);
-    g.addEdge(2,4,5,1);
-    g.addEdge(4,3,1,1);
+    g.addEdge(1,6,14,0);
+    g.addEdge(1,3,9,0);
+    g.addEdge(1,2,7,0);
+    g.addEdge(2,3,10,0);
+    g.addEdge(2,4,15,0);
+    g.addEdge(3,4,11,0);
+    g.addEdge(3,6,2,0);
+    g.addEdge(6,5,9,0);
+    g.addEdge(5,4,6,0);
     g.printAdjList();
 
     stack<int>topo;
@@ -120,5 +167,8 @@ int main() {
     // }
     int n = 5;
     g.shortestPathDfs(topo, n);
+    g.dijkstraShortestPath(6, 6, 4);
+
+    
     return 0;
 }
