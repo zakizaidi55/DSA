@@ -1,0 +1,40 @@
+class Solution {
+public:
+    string reverseWords(string s) {
+        int i = 0;
+        int n = s.length();
+        string result = "";
+        while(i<=n) {
+            // cout << "i " << i << endl;
+            while(i < n && s[i] == ' ') 
+                i++;
+            
+            // cout << "i " << i << endl;
+
+            if(i>=n)
+                break;
+            
+            int j = i + 1;
+
+            while( j < n && s[j] != ' ') 
+                j++;
+            
+            // cout << "j" << j << endl;
+            string sub = s.substr(i, j-i);
+
+            if(result.length() == 0) {
+                result = sub;
+            }
+
+            else {
+                result = sub + " " + result;
+            }
+
+            i = j + 1;
+          
+
+        }
+
+        return result;
+    }
+};
