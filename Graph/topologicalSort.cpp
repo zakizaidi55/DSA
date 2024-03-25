@@ -83,30 +83,30 @@ int main() {
     g.addEdge(0,1,1);
     g.addEdge(1,2,1);
     g.addEdge(2,3,1);
-    g.addEdge(2,4,1);
+    g.addEdge(4,3,1);
     g.addEdge(3,5,1);
-    g.addEdge(4,5,1);
+    g.addEdge(6,4,1);
     g.addEdge(5,6,1);
-    g.addEdge(5,7,1);
+    g.addEdge(6,7,1);
     g.printAdjList();
     int n = 8; 
     map<int, bool> visited;
 
-    // stack<int>st;
+    stack<int>st;
 
-    // for(int node=0; node<n; node++) {
-    //     if(!visited[node]) {
-    //         g.topoSortDfs(node, visited, st);
-    //     }
-    // }
+    for(int node=0; node<n; node++) {
+        if(!visited[node]) {
+            g.topoSortDfs(node, visited, st);
+        }
+    }
 
-    // cout << "printing the topo order " << endl;
-    // while(!st.empty()) {
-    //     cout << st.top() << endl;
-    //     st.pop();
-    // }
+    cout << "printing the topo order " << endl;
+    while(!st.empty()) {
+        cout << st.top() << endl;
+        st.pop();
+    }
 
-    g.topoSortBfs(n);
+    // g.topoSortBfs(n);
     return 0;
 
 }
