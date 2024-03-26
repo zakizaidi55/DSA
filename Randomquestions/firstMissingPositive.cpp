@@ -21,3 +21,33 @@ public:
 
     }
 };
+
+
+// ==================================Method2=================================
+class Solution {
+public:
+    int firstMissingPositive(vector<int>& nums) {
+        int n = nums.size();
+        nums.push_back(0);
+        cout << "N " << n << endl; 
+        for(int i=0; i<n; i++) {
+            while(nums[i] > 0 && nums[i] <= n && nums[i] != nums[nums[i]]) {
+                swap(nums[i] ,nums[nums[i]]);
+                for(auto num: nums) {
+                    cout << num <<  " ";
+                } cout << endl;
+            }
+            
+        }
+
+        
+
+        for(int i=1; i<=n; i++) {
+            if(nums[i] != i) {
+                return i;
+            }
+        }
+
+        return n+1;
+    }
+};
