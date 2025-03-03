@@ -39,3 +39,39 @@ public:
     }
 }
 
+//----------------------------Method 2----------------------------------
+
+class Solution {
+public:
+    vector<int> pivotArray(vector<int>& nums, int pivot) {
+        int countLess = 0;
+        int countEqual = 0;
+
+        for(int i=0; i<nums.size(); i++) {
+            if(nums[i] < pivot) 
+                countLess++;
+            
+            else if(nums[i] == pivot)
+                countEqual++;
+        }
+
+        int i = 0; //index of less then pivot;
+        int j = countLess; // index of equal element
+        int k = countLess + countEqual; // index of large element
+
+        vector<int>ans(nums.size());
+        for(int&num: nums ) {
+            if(num < pivot)
+                ans[i++] = num;
+            
+            else if(num == pivot)
+                ans[j++] = num;
+            
+            else
+                ans[k++] = num;
+        }
+
+        return ans;
+
+    }
+};
