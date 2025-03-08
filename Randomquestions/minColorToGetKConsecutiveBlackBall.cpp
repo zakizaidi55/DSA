@@ -16,3 +16,41 @@ public:
         return ans;
     }
 };
+
+
+
+//////////////////////////////Method2////////////////////////////////
+
+class Solution {
+public:
+    int minimumRecolors(string blocks, int k) {
+        int ans = INT_MAX;
+        int i = 0;
+        int j = 0;
+        int whiteBalls = 0;
+        while(j < blocks.size()) {
+
+            if(blocks[j] == 'W') {
+                whiteBalls++;
+            }
+
+            //check if we created k size windows
+            if(j-i+1 == k) {
+
+                ans = min(ans, whiteBalls);
+
+                //shifting
+                if(blocks[i] == 'W') {
+                    whiteBalls--;
+                }
+
+                i++;
+            }
+
+            j++;
+        }
+
+        return ans;
+    }
+};
+
