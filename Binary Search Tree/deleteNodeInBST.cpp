@@ -17,6 +17,8 @@ public:
             return NULL;
         }
 
+
+
         if (root->val == key) {
             if(root->left == NULL && root->right == NULL) {
                 delete root;
